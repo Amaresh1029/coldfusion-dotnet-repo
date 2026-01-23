@@ -1,22 +1,16 @@
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --creating database
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 create database EmployeeManagement;
 
 use EmployeeManagement;
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --creating tables
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
+
+
 
 create table Departments (
 id int primary key identity(201, 1),
@@ -24,14 +18,14 @@ name varchar(30) not null,
 location varchar(30) not null
 );
 
-EXEC sp_rename 'Departments.dept_name', 'name', 'COLUMN';
+
 --select * from Departments;
 
 create table Employees (
 id int primary key identity(101, 1),
 first_name varchar(20) not null,
-middle_name varchar(20) not null,
-last_name varchar(20) not null,
+middle_name varchar(20),
+last_name varchar(20),
 hire_date date not null,
 departmentID int foreign key references Departments(id)
 );
@@ -47,10 +41,9 @@ end_date date,
 dept_id int foreign key references Departments(id)
 );
 
-
-
 EXEC sp_rename 'Projects.dept_id', 'departmentID', 'COLUMN';
---select * from Projects;
+
+
 create table EmployeeProjects	(
 employee_id int foreign key references Employees(id),
 project_id int foreign key references Projects(id),
@@ -59,13 +52,10 @@ primary key(employee_id, project_id)
 );
 
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
+
+
 
 --inserting records
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 
 -- Departments
@@ -105,7 +95,7 @@ INSERT INTO Employees (first_name, middle_name, last_name, hire_date, department
 ('Komal', 'Vinod', 'Jain', '2020-11-23', 206, 58000),
 ('Rajesh', 'Mohan', 'Chatterjee', '2021-01-30', 207, 69000);
 -- Projects
-select * from Employees;
+
 INSERT INTO Projects (name, start_date, departmentID) VALUES
 ('Payroll Automation', '2023-01-01', 203),
 ('Recruitment Portal', '2023-06-01', 201),
@@ -149,23 +139,8 @@ INSERT INTO EmployeeProjects VALUES
 (123, 313, 'AI Engineer');
 
 
-delete from Employees;
-delete from EmployeeProjects;
-delete from Departments;
-delete from Projects;
-
-select * from Departments;
-select * from Employees;
-select * from EmployeeProjects;
-select * from Projects;
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Update a specific record based on a condition (e.g., increase salary for employees in IT).
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 update Employees
 set salary = salary + salary * 0.2
@@ -175,26 +150,10 @@ where id in (select e.id from Employees e
 	where ep.role = 'Developer'
 	);
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Delete a record based on a specific condition.
 --remove testers from record.
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
-
-/*
-create or alter trigger deleteEmployees
-on EmployeeProjects
-after delete
-as
-begin
-	delete e from Employees e
-	inner join deleted d
-	on e.id = d.employee_id;
-end
-*/
 update EmployeeProjects
 set employee_id = null
 where role = 'Tester';
@@ -206,13 +165,10 @@ where id not in (select employee_id from EmployeeProjects);
 delete from Employees 
 where not exists (select 1 from EmployeeProjects ep where Employees.id = ep.employee_id);
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Implement a transaction (COMMIT, ROLLBACK) for safe modifications.
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
+
 
 begin transaction t1
 
@@ -235,14 +191,9 @@ begin catch
 	rollback;
 end catch
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Create a stored procedure. 
 --Assumption: Update salary of the employee based on role. Show the projects availaible for a role
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 create or alter procedure P_ProjectsByRole
 @role varchar(50),
@@ -280,14 +231,9 @@ end
 
 exec P_ProjectsByRole 'Developer', 0.10;
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --create a view
 --list the employees & their projects whose department is in Pune, Bangalore and Mumbai
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 create view V_EmployeesWithProjectID as
 (
@@ -314,13 +260,8 @@ where ep.departmentID in (select id from Departments
 			);
 
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Create an AFTER INSERT trigger to log new employee entries into an AuditLog table.
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 create table EmployeeLogs	(
 id int primary key,
@@ -349,14 +290,8 @@ values
 
 select * from EmployeeLogs;
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 --Implement an INSTEAD OF DELETE trigger to prevent accidental deletion of records.
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
-
 create or alter trigger T_Prevent_Deletion
 on Employees
 instead of Delete
@@ -370,15 +305,10 @@ delete Employees
 
 select * from Employees;
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
-
 --Write a cursor that loops through employee salaries and applies a bonus based on a certain condition.
 --condition: raise salary of employees whose salary is less than 60000 and
 --they have role in developer or any kind of Analyst
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
 
 declare @id int,
 		@salary int
@@ -410,14 +340,9 @@ close cursor_update_salary
 
 deallocate cursor_update_salary;
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
+
 
 --Optimizing performance by using set-based queries instead of cursors
-
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
-
 
 update Employees
 set salary = salary - salary * 0.1
