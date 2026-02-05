@@ -1,3 +1,16 @@
+<cfif NOT structKeyExists(session, "init")>
+    <cfset session.init = true>
+</cfif>
+
+<cfset structDelete(session, "prime", false)>
+<cfset structDelete(session, "reverse", false)>
+<cfset structDelete(session, "palindrome", false)>
+<cfset structDelete(session, "calculator", false)>
+<cfset structDelete(session, "sort", false)>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +52,12 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
         }
+
+        .calci {
+            margin: auto;
+            width: 250px;
+        }
+
     </style>
 </head>
 
@@ -68,17 +87,20 @@
             </div>
 
             <div class="card">
-                <h2>Calculator</h2>
-                <cfinclude template="calculator/input.cfm">
+                <h2>Sort Numbers</h2>
+                <cfinclude template="sort/input.cfm">
             </div>
+            
         </div>
 
         <!-- Row 3 -->
-        <div class="card">
-            <h2>Sort Numbers</h2>
-            <cfinclude template="sort/input.cfm">
+        <div class="card calci">
+            <h2>Calculator</h2>
+            <cfinclude template="calculator/input.cfm">
         </div>
 
     </div>
 </body>
 </html>
+
+<!--- <cfdump var="#session#"> --->

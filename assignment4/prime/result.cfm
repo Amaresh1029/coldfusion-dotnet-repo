@@ -1,4 +1,5 @@
-<cfset n = val(form.num)>
+<cfset inputString = form.num>
+<cfset n = val(inputString)>
 <cfset isPrime = true>
 
 <cfif n LTE 1>
@@ -14,7 +15,9 @@
 
 <cfoutput>
 <div class="box">
-    <cfif isPrime>
+    <cfif !isNumeric(inputString)>
+        <h2> #inputString# is a string.
+    <cfelseif isPrime>
         <h2>#n# is a Prime Number</h2>
     <cfelse>
         <h2>#n# is NOT a Prime Number</h2>

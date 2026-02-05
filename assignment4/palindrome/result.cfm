@@ -1,5 +1,5 @@
 <cfset str = form.str>
-
+<cfset inputString = str>
 <cfset rev = "">
 
 <cfset left = 1>
@@ -25,8 +25,13 @@
 <cfoutput>
 <div class="box">
     <h2>Palindrome Result</h2>
-    <p>"#str#" is 
-        <strong>#isPalindrome ? "a palindrome" : "not a palindrome"#</strong>
+    <p>
+        <cfif !isNumeric(inputString)>
+            "#str#" is 
+            <strong>#isPalindrome ? "a palindrome" : "not a palindrome"#</strong>
+        <cfelse>
+            #inputString# is a Number
+        </cfif>
     </p>
     <a href="../index.cfm">Go to index</a>
 </div>

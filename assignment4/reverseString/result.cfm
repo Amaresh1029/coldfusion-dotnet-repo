@@ -11,8 +11,12 @@
 
 <cfoutput>
 <div class="box">
+    <cfif not isNumeric(str)>
     <h2>After Reverse</h2>
     <p>#rev#</p>
+    <cfelse>
+    <h2> #str# is number</h2>
+    </cfif>
     <a href="..\index.cfm">Go to index</a>
 </div>
 </cfoutput>

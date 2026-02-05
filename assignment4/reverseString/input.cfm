@@ -1,7 +1,9 @@
-<form action="\assignment4\reverseString\result.cfm" method="post" class= "rev-form">
-    <input type="text" name="str" placeholder="Enter a string" required>
-    <input type="submit" value="reverse">
+<form action="" method="post" class="rev-form">
+    <input type="text" name="rev_str" placeholder="Enter a string" required>
+    <input type="submit" value="Reverse">
 </form>
+
+<!--- <cfdump var="#form#"> --->
 
 <style>
     .rev-form {
@@ -28,5 +30,39 @@
     .rev-form input[type="submit"]:hover {
         background: #45a049;
     }
+
+    .box {
+        background: #f9f9f9;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        width: fit-content;
+        margin: 20px auto;
+        text-align: center;
+    }
 </style>
 
+<cfif structKeyExists(form, "rev_str")>
+
+    <cfset inputString = trim(form.rev_str)>
+
+    <cfif isNumeric(inputString)>
+        <cfset session.reverse = inputString & " is a number">
+    <cfelse>
+        <cfset rev = "">
+        <cfset right = len(inputString)>
+
+        <cfloop from="#right#" to="1" step="-1" index="i">
+            <cfset rev &= mid(inputString, i, 1)>
+        </cfloop>
+
+        <cfset session.reverse = "After Reverse: " & rev>
+    </cfif>
+
+</cfif>
+
+<cfif structKeyExists(session, "reverse")>
+    <cfoutput>
+        <div class="box">#session.reverse#</div>
+    </cfoutput>
+</cfif>

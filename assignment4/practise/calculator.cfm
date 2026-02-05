@@ -35,7 +35,7 @@
 }
 
 .calc-form input {
-    width: 90%;
+    width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     text-align: right;
@@ -60,19 +60,6 @@
 .keys button:hover {
     background: #eee;
 }
-
-.box {
-    margin-top: 15px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: #f9f9f9;
-    text-align: center;
-}
-
-.error {
-    color: red;
-}
 </style>
 
 <script>
@@ -84,9 +71,11 @@ function clearBox() {
 }
 </script>
 
+
 <cfif structKeyExists(form, "expr")>
 
     <cfset expr = replace(form.expr, " ", "", "all")>
+
     <cfset tokens = []>
     <cfset num = "">
 
@@ -110,11 +99,6 @@ function clearBox() {
             <cfset a = val(tokens[i-1])>
             <cfset b = val(tokens[i+1])>
 
-            <cfif (tokens[i] EQ "/" OR tokens[i] EQ "%") AND b EQ 0>
-                <cfset session.calculator = "Error: Can't divide by zero">
-                <cfbreak>
-            </cfif>
-
             <cfif tokens[i] EQ "*"><cfset r = a * b></cfif>
             <cfif tokens[i] EQ "/"><cfset r = a / b></cfif>
             <cfif tokens[i] EQ "%"><cfset r = a MOD b></cfif>
@@ -129,23 +113,20 @@ function clearBox() {
     </cfloop>
 
     
-    <cfif NOT structKeyExists(session, "calculator")>
-        <cfset result = val(tokens[1])>
-        <cfloop from="2" to="#arrayLen(tokens)#" step="2" index="i">
-            <cfif tokens[i] EQ "+">
-                <cfset result += val(tokens[i+1])>
-            <cfelse>
-                <cfset result -= val(tokens[i+1])>
-            </cfif>
-        </cfloop>
+    <cfset result = val(tokens[1])>
+    <cfloop from="2" to="#arrayLen(tokens)#" step="2" index="i">
+        <cfif tokens[i] EQ "+">
+            <cfset result += val(tokens[i+1])>
+        <cfelse>
+            <cfset result -= val(tokens[i+1])>
+        </cfif>
+    </cfloop>
 
-        <cfset session.calculator = expr & " = " & result>
-    </cfif>
-
-</cfif>
-
-<cfif structKeyExists(session, "calculator")>
     <cfoutput>
-        <div class="box">#session.calculator#</div>
+        <div class="box">
+            <h3>Result</h3>
+            <p>#expr# = <strong>#result#</strong></p>
+        </div>
     </cfoutput>
+
 </cfif>
