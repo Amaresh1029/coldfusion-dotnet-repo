@@ -2,8 +2,8 @@
     <input type="text" name="rev_str" placeholder="Enter a string" required>
     <input type="submit" value="Reverse">
 </form>
-
-<!--- <cfdump var="#form#"> --->
+<!--- <cfset var1 = this>
+<cfdump var="#var1#" label="Scope: This"> --->
 
 <style>
     .rev-form {

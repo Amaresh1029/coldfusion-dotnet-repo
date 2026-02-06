@@ -40,6 +40,11 @@
     }
 </style>
 
+
+<!--- <cfset var1 = #this#>
+<cfset this.var1 = "abcd">
+<cfdump var="#this.var1#"> --->
+<!--- <cfdump var="#form#"> --->
 <cfif structKeyExists(form, "str")>
 
     <cfset inputString = trim(form.str)>

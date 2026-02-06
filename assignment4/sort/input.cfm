@@ -61,7 +61,7 @@
         </cfif>
     </cfloop>
 
-    <cfset resultHTML &= "<br><strong>Sorted by ASCII</strong><br>">
+    <cfset resultHTML &= "<br><strong>Sorted Result</strong><br>">
 
     <cfloop from="1" to="#n-1#" index="i">
         <cfloop from="1" to="#n-i#" index="j">

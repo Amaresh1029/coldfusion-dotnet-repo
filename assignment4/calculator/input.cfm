@@ -149,3 +149,5 @@ function clearBox() {
         <div class="box">#session.calculator#</div>
     </cfoutput>
 </cfif>
+
+
