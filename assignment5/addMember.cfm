@@ -67,6 +67,10 @@
         text-align: center;
         font-weight: 600;
     }
+    .required{
+        color:red;
+        display:inline;
+    }
 </style>
 
 <cfinclude template="header.cfm" >
@@ -75,7 +79,7 @@
     <h1>Add a Member</h1>
 
     <div class="row">
-        <label>First Name (*required)</label>
+        <label>First Name <div class="required">(*required)</div></label>
         <input type="text" name="first_name" required>
     </div>
 

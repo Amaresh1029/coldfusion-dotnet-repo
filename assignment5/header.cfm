@@ -3,6 +3,8 @@
         background: #333;
         padding: 10px;
         text-align: center;
+        margin-top: -8px;
+        /* width: 500px; */
     }
 
     .header a {
@@ -19,9 +21,6 @@
 </style>
 
 <div class="header">
-    <a href="index.cfm">Home</a>
     <a href="addMember.cfm">Add Member</a>
-    <a href="deleteMember.cfm">Delete Member</a>
-    <a href="updateMembers.cfm">Update Member</a>
-    <a href="showMembers.cfm">Show Members</a>
+    <a href="editDeleteMembers.cfm">Edit and Delete Members</a>
 </div>
