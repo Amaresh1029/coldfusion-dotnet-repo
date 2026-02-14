@@ -118,7 +118,13 @@
     </cfif>
     <cfif isValid>
         <cfset form.date_joined = now()>
-        <cfinsert tablename="Members" datasource="library">
+        <!---<cfinsert tablename="Members" datasource="library">--->
+        <cfstoredproc procedure="proc_AddMember" datasource="library" >
+            <cfprocparam cfsqltype="cf_sql_varchar" value="#form.first_name#">
+            <cfprocparam cfsqltype="cf_sql_varchar" value="#form.middle_name#">
+            <cfprocparam cfsqltype="cf_sql_varchar" value="#form.last_name#">
+            <cfprocparam cfsqltype="cf_sql_date" value="#form.date_joined#">
+        </cfstoredproc>
         <cfset structClear(form)>
         <!---<cflocation url="addMember.cfm" addtoken="false"> --->
         <div class="success"> Record added Successfully.</div>  
