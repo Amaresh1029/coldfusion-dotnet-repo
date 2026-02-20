@@ -1,0 +1,4 @@
+"Severity","ThreadID","Date","Time","Context","Application","Message"
+"INFO","http-nio-8888-exec-2","02/20/2026","11:31:45","http://localhost:8888","Assignment7App","application started at {ts '2026-02-20 11:31:45'}"
+"INFO","ControllerThread:2513","02/20/2026","14:17:20","http://localhost:8888","Assignment7App","application ended at {ts '2026-02-20 14:17:20'}"
+"INFO","http-nio-8888-exec-7","02/20/2026","15:19:42","http://localhost:8888","Assignment7App","application started at {ts '2026-02-20 15:19:42'}"
