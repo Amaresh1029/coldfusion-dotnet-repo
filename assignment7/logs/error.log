@@ -21,3 +21,5 @@
 "INFO","http-nio-8888-exec-6","02/20/2026","12:01:10","http://localhost:8888","Assignment7App","{ts '2026-02-20 12:01:10'} , invalid component definition, can't find component [components.File] , "
 "INFO","http-nio-8888-exec-4","02/20/2026","12:03:10","http://localhost:8888","Assignment7App","{ts '2026-02-20 12:03:10'} , invalid component definition, can't find component [components.File] , "
 "INFO","http-nio-8888-exec-3","02/20/2026","12:12:33","http://localhost:8888","Assignment7App","{ts '2026-02-20 12:12:33'} , Upload Error , key [UPLOADPATH] doesn't exist"
+"INFO","http-nio-8888-exec-5","03/03/2026","11:20:41","http://localhost:8888","Assignment7App","{ts '2026-03-03 11:20:41'} , Upload Error , The MIME type of the uploaded file [application/vnd.openxmlformats-officedocument.wordprocessingml.document] was rejected by the server."
+"INFO","http-nio-8888-exec-10","03/03/2026","11:25:23","http://localhost:8888","Assignment7App","{ts '2026-03-03 11:25:23'} , Upload Error , The MIME type of the uploaded file [application/vnd.openxmlformats-officedocument.wordprocessingml.document] was rejected by the server."
